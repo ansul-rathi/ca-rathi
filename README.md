@@ -1,78 +1,53 @@
-# NKS & Associates — Website
+# CA RATHI — Sample CA Firm Website
 
-Fully static, multi-page marketing website for **NKS & Associates**, a Chartered Accountancy firm. Built with React + Vite + TypeScript + Tailwind CSS + React Router.
+ICAI-compliant, prerendered website template for Chartered Accountant firms.
+**All names, numbers, FRN, membership numbers, phone, email and address are dummy data.**
 
-## Tech stack
+React 19 · Vite · TypeScript · Tailwind CSS · React Router (prerendered to static HTML).
 
-- **React 19** + **Vite** + **TypeScript**
-- **Tailwind CSS v3** (Navy + Gold theme)
-- **React Router v7** (client-side SPA, `BrowserRouter`)
-- **react-helmet-async** for per-page SEO
-- **lucide-react** icons + custom inline brand glyphs
-- **react-markdown** for blog content
-- Scroll reveal + count-up via `IntersectionObserver` (no animation libraries)
+## Features
 
-No backend, database, CMS, or animation libraries — entirely static.
+- 31 static, SEO-ready pages (full HTML per route, per-page title/description/canonical/OG/Twitter tags)
+- JSON-LD: AccountingService, WebSite, Service, FAQPage, BlogPosting, JobPosting, BreadcrumbList, WebApplication
+- `sitemap.xml`, `robots.txt` (AI crawlers allowed), `llms.txt` (GEO / answer-engine summary), real 404 page
+- Calculators: Income Tax FY 2026-27 (old vs new, rebate, marginal relief, surcharge, cess), GST (5/18/40%, CGST/SGST/IGST), HRA (8 metro cities)
+- Auto-updating compliance calendar (GST, TDS/TCS, advance tax, ITR, ROC, PF/ESI)
+- Useful govt/regulator links, document checklists (printable), FAQs, insights/blog with categories, careers
+- Enquiry form (Netlify Forms out of the box; or any JSON endpoint), honeypot, DPDP consent
+- ICAI first-visit disclaimer, Disclaimer / Privacy Policy (DPDP Act 2023) / Terms pages
+- 6 colour themes, switchable live in demo mode; shareable as `/?theme=maroon`
+- Self-hosted fonts, code-split routes, security headers (CSP, HSTS), immutable asset caching
+- Accessible: skip link, keyboard nav, labelled forms, reduced-motion support; mobile call/WhatsApp bar
 
-## Project structure
+## ICAI compliance (Website Guidelines, Code of Ethics 2020, Advisory 14.10.2020)
 
-```
-src/
-  config/site.ts      # SINGLE source of truth for all client details
-  data/               # typed seed content + async-ready accessors (data/index.ts)
-  hooks/              # useReveal, useAsyncData
-  components/         # layout, ui primitives, page sections
-  pages/              # route pages
-  routes.tsx          # route table (lazy-loaded)
-public/               # robots.txt, sitemap.xml, favicon, og-image, logo
-scripts/gen-sitemap.mjs  # builds sitemap.xml from data (runs on prebuild)
-```
+Removed/avoided: client names & logos, testimonials, "why choose us", superlatives, fees, client counts,
+"countries served", firm name as logo/monogram, awards/rankings, links to commercial entities, push-mode
+pop-ups. Shown: firm name in plain text, FRN, partners with membership numbers, factual services,
+professional updates, govt/ICAI links.
 
-## Editing content
+## Customising for a client
 
-- **Client details** (name, phone, email, address, social, domain): edit only
-  [`src/config/site.ts`](src/config/site.ts).
-- **All copy** (services, team, testimonials, clients, stats, blog posts, jobs):
-  edit the files in [`src/data/`](src/data/). Components never hardcode copy — they
-  read through the accessors in [`src/data/index.ts`](src/data/index.ts).
+1. `src/config/site.ts` — all firm details, domain, `defaultTheme`, set `demoMode: false`.
+2. `src/data/*` — services, partners, posts, jobs, FAQs, legal text.
+3. `scripts/gen-assets.mjs` — edit brand text/colours, then `npm run assets` (OG image + icons).
+4. New theme colours: `src/styles/themes.css` + `src/config/themes.ts`.
 
-### Future API swap
-
-The accessors in `data/index.ts` return `Promise<T>` and are consumed via the
-`useAsyncData` hook. To move to a live API later, change the accessor bodies to
-`fetch()` calls — **no component changes required**.
-
-The contact form calls `submitContact()` in `data/index.ts`, which currently
-logs to the console and resolves after a fake delay. Replace its body with a
-`POST` to your dashboard API (see the `// TODO` marker).
-
-## Local development
+## Commands
 
 ```bash
 npm install
-npm run dev        # start dev server (http://localhost:5173)
+npm run dev      # http://localhost:5173
+npm run build    # type-check, client + SSR build, prerender all pages to dist/
+npm run preview
 ```
 
-## Build & preview
+## Deploy
 
-```bash
-npm run build      # generates sitemap, type-checks, builds to dist/
-npm run preview    # serve the production build locally
-```
-
-Other scripts: `npm run lint` (oxlint), `npm run format` (prettier),
-`npm run sitemap` (regenerate `public/sitemap.xml`).
-
-## Deploy (Vercel)
-
-The repo includes [`vercel.json`](vercel.json) with an SPA catch-all rewrite to
-`index.html`. Import the project into Vercel — it auto-detects Vite. Build
-command `npm run build`, output directory `dist/`.
-
-Remember to update `SITE.domain` in `src/config/site.ts` so canonical URLs and
-the sitemap point at the live domain.
+Netlify (recommended — forms work with zero config) or Vercel; configs included. Set env
+`VITE_SITE_URL` to the live domain so canonicals and the sitemap are correct. On Netlify, enable
+form notifications under Forms → enquiry.
 
 ---
 
-Crafted by Veestar Infotech Solutions LLP.
-# ca-rathi
+Website by Veestar Infotech Solutions LLP.

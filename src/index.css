@@ -1,0 +1,128 @@
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import './styles/themes.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper font-body text-slate-600 antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-brand-800;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-400 ring-offset-2;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-xl border border-brand-100 bg-white px-4 py-3 text-sm text-brand-800 transition placeholder:text-slate-400 focus-visible:border-accent-400;
+  }
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-brand-800;
+  }
+  .card {
+    @apply rounded-xl2 border border-brand-100 bg-white shadow-card;
+  }
+  .eyebrow {
+    @apply font-heading text-sm font-semibold uppercase tracking-wider;
+  }
+}
+
+/* Markdown / long-form content (blog posts, legal pages) */
+.prose-content {
+  @apply text-slate-600;
+}
+.prose-content h2 {
+  @apply mt-10 font-heading text-2xl font-bold text-brand-800;
+}
+.prose-content h3 {
+  @apply mt-8 font-heading text-xl font-bold text-brand-800;
+}
+.prose-content p {
+  @apply mt-4 leading-relaxed;
+}
+.prose-content ul {
+  @apply mt-4 list-disc space-y-2 pl-6;
+}
+.prose-content ol {
+  @apply mt-4 list-decimal space-y-2 pl-6;
+}
+.prose-content a {
+  @apply font-medium text-accent-700 underline underline-offset-2 hover:text-accent-800;
+}
+.prose-content strong {
+  @apply font-semibold text-brand-800;
+}
+.prose-content blockquote {
+  @apply mt-6 border-l-4 border-accent-400 bg-paper py-3 pl-5 italic text-brand-700;
+}
+.prose-content table {
+  @apply mt-6 w-full border-collapse text-sm;
+}
+.prose-content th,
+.prose-content td {
+  @apply border border-brand-100 px-3 py-2 text-left;
+}
+.prose-content th {
+  @apply bg-brand-50 font-semibold text-brand-800;
+}
+
+/* Scroll reveal is progressive enhancement: content is only hidden when JS
+   is running (html.js), so crawlers / no-JS users always see it. */
+.js .reveal {
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+}
+.js .reveal:not(.is-shown) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal:not(.is-shown) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

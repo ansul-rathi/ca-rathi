@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-IN" data-theme="classic" data-demo="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      // Before paint: enable JS-only styles and apply a previewed theme (demo mode).
+      ;(function (d) {
+        var h = d.documentElement
+        h.classList.add('js')
+        if (!h.hasAttribute('data-demo')) return
+        try {
+          var ok = ['classic', 'emerald', 'maroon', 'royal', 'teal', 'graphite']
+          var q = new URLSearchParams(location.search).get('theme')
+          if (q && ok.indexOf(q) > -1) localStorage.setItem('site-theme', q)
+          var t = localStorage.getItem('site-theme')
+          if (t && ok.indexOf(t) > -1) h.setAttribute('data-theme', t)
+        } catch (e) {}
+      })(document)
+    </script>
+    <!--app-head-->
+    <meta name="theme-color" content="#162c57" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM summary" />
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <noscript>
+      <style>.reveal{opacity:1!important;transform:none!important}</style>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

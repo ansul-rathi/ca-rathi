@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm uninstall *)",
+      "Bash(xargs sed -i '' -e 's/navy-/brand-/g' -e 's/gold-/accent-/g')",
+      "Bash(sed -i '' \"s/light ? 'text-accent-300' : 'text-accent-500'/light ? 'text-accent-300' : 'text-accent-700'/; s/<span className=\\\\\"text-accent-400\\\\\">\\\\/\\\\/ <\\\\/span>/<span className={light ? 'text-accent-400' : 'text-accent-600'} aria-hidden=\\\\\"true\\\\\">\\\\/\\\\/ <\\\\/span>/\" ui/SectionHeading.tsx)",
+      "Bash(sed -i '' 's/<span className=\"text-accent-400\">\\\\/\\\\/ <\\\\/span>/<span className=\"text-accent-400\" aria-hidden=\"true\">\\\\/\\\\/ <\\\\/span>/' ui/PageHeader.tsx)",
+      "Bash(node -e ' *)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --enable-logging=stderr --v=0 --virtual-time-budget=5000 --dump-dom http://localhost:4173/services/gst)",
+      "Bash(pkill -f \"vite preview --port 4173\")"
+    ]
+  }
+}
