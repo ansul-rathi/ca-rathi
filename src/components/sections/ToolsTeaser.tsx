@@ -43,7 +43,7 @@ export const tools = [
   },
 ]
 
-export function ToolsTeaser({ heading = true }: { heading?: boolean }) {
+export function ToolsTeaser({ heading = true, limit }: { heading?: boolean; limit?: number }) {
   return (
     <section className="bg-paper py-16 md:py-24">
       <Container>
@@ -56,7 +56,7 @@ export function ToolsTeaser({ heading = true }: { heading?: boolean }) {
           />
         )}
         <div className={`grid gap-5 sm:grid-cols-2 lg:grid-cols-3 ${heading ? 'mt-12' : ''}`}>
-          {tools.map(({ title, desc, to, Icon }, i) => (
+          {tools.slice(0, limit ?? undefined).map(({ title, desc, to, Icon }, i) => (
             <Reveal key={to} delay={(i % 3) * 80}>
               <Link
                 to={to}

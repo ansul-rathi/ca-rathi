@@ -5,6 +5,7 @@ import { Footer } from './Footer'
 import { DisclaimerModal } from './DisclaimerModal'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { MobileActionBar } from './MobileActionBar'
+import { DemoGate } from './DemoGate'
 import { SITE } from '@/config/site'
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -25,6 +26,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <MobileActionBar />
       {SITE.demoMode && <ThemeSwitcher />}
       <DisclaimerModal />
+      {SITE.teaser.enabled && <DemoGate />}
     </div>
   )
 }

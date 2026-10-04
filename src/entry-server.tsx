@@ -4,7 +4,7 @@ import { prerender } from 'react-dom/static'
 import { StaticRouter } from 'react-router-dom'
 import App from './App'
 import { HeadContext, headToHtml, type HeadData } from './components/Seo'
-export { staticPaths } from './routes'
+export { staticPaths, prerenderPaths } from './routes'
 export { SITE } from './config/site'
 export { services, posts, faqs } from './data'
 
@@ -18,6 +18,9 @@ export async function render(url: string) {
         </StaticRouter>
       </HeadContext.Provider>
     </StrictMode>,
+    // Static output: never outline large Suspense boundaries into streamed
+    // segments — keep page content inline so it hydrates cleanly.
+    { progressiveChunkSize: Number.MAX_SAFE_INTEGER },
   )
   const html = await new Response(prelude).text()
   return { html, head: ctx.head ? headToHtml(ctx.head) : '' }

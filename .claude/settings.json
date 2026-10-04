@@ -7,7 +7,15 @@
       "Bash(sed -i '' 's/<span className=\"text-accent-400\">\\\\/\\\\/ <\\\\/span>/<span className=\"text-accent-400\" aria-hidden=\"true\">\\\\/\\\\/ <\\\\/span>/' ui/PageHeader.tsx)",
       "Bash(node -e ' *)",
       "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --enable-logging=stderr --v=0 --virtual-time-budget=5000 --dump-dom http://localhost:4173/services/gst)",
-      "Bash(pkill -f \"vite preview --port 4173\")"
+      "Bash(pkill -f \"vite preview --port 4173\")",
+      "Bash(ssh-add -l)",
+      "Bash(ssh -T -o BatchMode=yes git@github.com)",
+      "Bash(grep -iA4 \"github\" ~/.ssh/config)",
+      "Bash(node test.mjs)",
+      "Bash(sed -i '' \"s/^await page.getByRole\\('button', { name: 'I Agree' }\\).click\\(\\)$/await page.waitForTimeout\\(800\\)/\" test.mjs)",
+      "Bash(node test2.mjs)",
+      "Bash(node test3.mjs)",
+      "Bash(grep -o '<!--\\\\$[^>]*-->' about/index.html)"
     ]
   }
 }

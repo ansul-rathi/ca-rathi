@@ -8,14 +8,14 @@ import { DueDateCard } from '@/components/ui/DueDateCard'
 
 // Next few statutory due dates. Computed in the browser from today's date so
 // it is always current (the prerendered HTML shows a placeholder list).
-export function CompliancePreview() {
+export function CompliancePreview({ limit = 6 }: { limit?: number }) {
   const [items, setItems] = useState<DueDate[] | null>(null)
 
   useEffect(() => {
     const now = new Date()
     const to = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())
-    setItems(getDueDates(now, to).slice(0, 6))
-  }, [])
+    setItems(getDueDates(now, to).slice(0, limit))
+  }, [limit])
 
   return (
     <section className="py-16 md:py-24">
@@ -37,7 +37,7 @@ export function CompliancePreview() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
           {items
             ? items.map((d) => <DueDateCard key={`${d.title}-${d.date.toISOString()}`} item={d} />)
-            : Array.from({ length: 6 }).map((_, i) => (
+            : Array.from({ length: limit }).map((_, i) => (
                 <div key={i} className="card flex h-[104px] items-center gap-4 p-5">
                   <CalendarClock className="text-brand-200" size={28} aria-hidden="true" />
                   <span className="text-sm text-slate-400">Loading due dates…</span>

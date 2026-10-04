@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Phone, MessageCircle, Mail } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
+import { WhatsAppIcon } from '@/components/ui/Social'
 import { SITE, telHref, waHref } from '@/config/site'
 
 // Sticky contact bar on small screens (pull model: visitor-initiated contact only).
@@ -18,7 +19,7 @@ export function MobileActionBar() {
       </a>
       {SITE.whatsapp && (
         <a href={waHref()} target="_blank" rel="noopener noreferrer" className={`${item} text-brand-800`}>
-          <MessageCircle size={20} aria-hidden="true" />
+          <WhatsAppIcon size={20} className="text-[#25D366]" />
           WhatsApp
         </a>
       )}

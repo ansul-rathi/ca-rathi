@@ -9,7 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = resolve(root, 'dist')
 const serverEntry = resolve(root, 'dist-server/entry-server.js')
 
-const { render, staticPaths, SITE, services, posts, faqs } = await import(pathToFileURL(serverEntry).href)
+const { render, staticPaths, prerenderPaths, SITE, services, posts, faqs } = await import(pathToFileURL(serverEntry).href)
 const template = readFileSync(resolve(dist, 'index.html'), 'utf8')
 
 const fill = (tpl, { html, head }) => {
@@ -25,11 +25,11 @@ const write = (path, content) => {
   writeFileSync(file, content)
 }
 
-for (const path of staticPaths) {
+for (const path of prerenderPaths) {
   write(path, fill(template, await render(path)))
 }
 writeFileSync(resolve(dist, '404.html'), fill(template, await render('/__not-found__')))
-console.log(`prerendered ${staticPaths.length} pages + 404.html`)
+console.log(`prerendered ${prerenderPaths.length} pages + 404.html`)
 
 // ---- sitemap.xml
 const today = new Date().toISOString().slice(0, 10)

@@ -37,7 +37,15 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [expanded, setExpanded] = useState<string | null>(null)
+  // Desktop dropdown that was just clicked: kept hidden until the pointer leaves,
+  // otherwise :hover / :focus-within would keep it open after navigation.
+  const [dismissed, setDismissed] = useState<string | null>(null)
   const location = useLocation()
+
+  const closeDropdown = (label: string) => {
+    setDismissed(label)
+    ;(document.activeElement as HTMLElement | null)?.blur()
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -75,8 +83,21 @@ export function Navbar() {
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
           {navItems.map((item) =>
             item.children ? (
-              <div key={item.label} className="group relative">
-                <NavLink to={item.to} className={linkCls} aria-haspopup="true">
+              <div
+                key={item.label}
+                className="group relative"
+                onMouseLeave={() => setDismissed(null)}
+                onBlur={(e) => {
+                  // Reset only when keyboard focus moves elsewhere (not on our own blur()).
+                  if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) setDismissed(null)
+                }}
+              >
+                <NavLink
+                  to={item.to}
+                  className={linkCls}
+                  aria-haspopup="true"
+                  onClick={() => closeDropdown(item.label)}
+                >
                   <span className="inline-flex items-center gap-1 py-3">
                     {item.label}
                     <ChevronDown
@@ -86,12 +107,19 @@ export function Navbar() {
                     />
                   </span>
                 </NavLink>
-                <div className="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-1 opacity-0 transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                <div
+                  className={`invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-1 opacity-0 transition-all ${
+                    dismissed === item.label
+                      ? ''
+                      : 'group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100'
+                  }`}
+                >
                   <ul className="max-h-[70vh] overflow-y-auto rounded-xl2 border border-brand-100 bg-white p-2 shadow-card">
                     {item.children.map((c) => (
                       <li key={c.to}>
                         <Link
                           to={c.to}
+                          onClick={() => closeDropdown(item.label)}
                           className="block rounded-lg px-3 py-2 text-sm text-brand-700 transition hover:bg-paper hover:text-accent-700"
                         >
                           {c.label}

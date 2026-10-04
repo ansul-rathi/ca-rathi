@@ -33,6 +33,15 @@ professional updates, govt/ICAI links.
 3. `scripts/gen-assets.mjs` — edit brand text/colours, then `npm run assets` (OG image + icons).
 4. New theme colours: `src/styles/themes.css` + `src/config/themes.ts`.
 
+## Sample-site gating
+
+Default build: whole site open except **Services** and **Resources**, where only the first 2 of
+each open (`openServices` / `openResources` in `SITE.teaser`, `src/config/site.ts`). Other items
+(menu links, cards, direct URLs) show a "full demo" popup with a WhatsApp button to Anshul Rathi.
+Gated URLs are left out of the sitemap.
+
+No gating (real client site): `VITE_FULL_SITE=true npm run build`.
+
 ## Commands
 
 ```bash

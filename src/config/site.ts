@@ -58,6 +58,18 @@ export const SITE = {
   // Set to false for a real client deployment.
   demoMode: true,
 
+  // --- Sample-site gating (default build). In Services and Resources only the
+  // first N items open; the rest show a "contact for full demo" popup.
+  // Disable with VITE_FULL_SITE=true.
+  teaser: {
+    enabled: !__FULL_SITE__,
+    contactName: 'Anshul Rathi',
+    whatsapp: '918107505074', // digits only
+    whatsappText: 'Hi Anshul, I saw the CA website sample and would like to see the full demo.',
+    openServices: 2,
+    openResources: 2,
+  },
+
   // Credit line in footer (plain text, not a hyperlink — ICAI bars links to commercial entities)
   credit: 'Website by Veestar Infotech Solutions LLP',
 } as const
